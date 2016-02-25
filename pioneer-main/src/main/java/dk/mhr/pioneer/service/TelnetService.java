@@ -23,10 +23,12 @@ public class TelnetService {
 
     private static final String MODE_STATUS = "?F\r\n";
     private static final String MODE_TUNER = "02FN\r\n";
+    private static final String MODE_TV_SAT = "05FN\r\n";
+    private static final String MODE_APPLE_TV = "15FN\r\n";
 
 
     public enum MODE {
-        TUNER;
+        TUNER, TV_SAT, APPLE_TV;
     }
 
     public boolean isPoweredOn() {
@@ -44,6 +46,12 @@ public class TelnetService {
         if (modeString.startsWith("FN02")) {
             return MODE.TUNER;
         }
+        if (modeString.startsWith("FN05")) {
+            return MODE.TV_SAT;
+        }
+        if (modeString.startsWith("FN15")) {
+            return MODE.APPLE_TV;
+        }
         return null;
     }
 
@@ -51,6 +59,12 @@ public class TelnetService {
         switch (mode) {
             case TUNER:
                 communicationManager.getTelnetCommandExecuter().sendCommand(MODE_TUNER);
+                break;
+            case TV_SAT:
+                communicationManager.getTelnetCommandExecuter().sendCommand(MODE_TV_SAT);
+                break;
+            case APPLE_TV:
+                communicationManager.getTelnetCommandExecuter().sendCommand(MODE_APPLE_TV);
                 break;
         }
     }

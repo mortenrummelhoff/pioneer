@@ -88,7 +88,8 @@ public class CommunicationManager {
             this.reader = reader;
         }
 
-        public String sendCommand(String command) {
+        public synchronized String sendCommand(String command) {
+            logger.info("sendCommand: " + command);
             try {
                 //setup reader to get response
                 reader.clearResponse();
@@ -101,6 +102,12 @@ public class CommunicationManager {
             } catch (IOException e) {
                 logger.warn("Unable to send command: {}", command, e);
                 return null;
+            } finally {
+                try {
+                    Thread.currentThread().sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -126,7 +133,7 @@ public class CommunicationManager {
                 return response;
             }
             else {
-                while (waitCount++ < 5 || response == null) {
+                while (waitCount++ < 5 && response == null) {
                     synchronized (MUTEX) {
                         try {
                             MUTEX.wait(100);
@@ -156,6 +163,7 @@ public class CommunicationManager {
                         //filter out FL0 message(what is it??)
                         if (line.length() < 15 && !line.startsWith("FL0")) {
                             response = line;
+                            logger.info(line);
                         }
                     }
                 }
