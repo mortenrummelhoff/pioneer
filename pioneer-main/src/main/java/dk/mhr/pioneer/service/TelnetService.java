@@ -26,9 +26,14 @@ public class TelnetService {
     private static final String MODE_TV_SAT = "05FN\r\n";
     private static final String MODE_APPLE_TV = "15FN\r\n";
 
+    private static final String VOLUME_STATUS = "?V\r\n";
 
     public enum MODE {
         TUNER, TV_SAT, APPLE_TV;
+    }
+
+    public String getVolume() {
+        return communicationManager.getTelnetCommandExecuter().sendCommand(VOLUME_STATUS);
     }
 
     public boolean isPoweredOn() {

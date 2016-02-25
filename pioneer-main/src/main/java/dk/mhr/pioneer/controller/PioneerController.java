@@ -1,5 +1,6 @@
 package dk.mhr.pioneer.controller;
 
+import dk.mhr.pioneer.DTO.VolumeString;
 import dk.mhr.pioneer.service.TelnetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,5 +35,11 @@ public class PioneerController {
     public TelnetService.MODE getMode() {
         return telnetService.getMode();
     }
+
+    @RequestMapping(path = "/volume", method = RequestMethod.GET)
+    public VolumeString getVolume() {
+        return new VolumeString(telnetService.getVolume().trim().substring(3));
+    }
+
 
 }
