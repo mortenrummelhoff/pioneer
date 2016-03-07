@@ -27,6 +27,7 @@ public class TelnetService {
     private static final String MODE_APPLE_TV = "15FN\r\n";
 
     private static final String VOLUME_STATUS = "?V\r\n";
+    private static final String VOLUME_SET = "%03dVL\r\n";
 
     public enum MODE {
         TUNER, TV_SAT, APPLE_TV;
@@ -34,6 +35,10 @@ public class TelnetService {
 
     public String getVolume() {
         return communicationManager.getTelnetCommandExecuter().sendCommand(VOLUME_STATUS);
+    }
+
+    public void setVolume(int vol) {
+        communicationManager.getTelnetCommandExecuter().sendCommand(String.format(VOLUME_SET, vol));
     }
 
     public boolean isPoweredOn() {

@@ -41,5 +41,9 @@ public class PioneerController {
         return new VolumeString(telnetService.getVolume().trim().substring(3));
     }
 
+    @RequestMapping(path = "/volume", method = RequestMethod.PUT)
+    public void setVolume(@RequestParam("vol") int vol) {
+        telnetService.setVolume(vol);
+    }
 
 }

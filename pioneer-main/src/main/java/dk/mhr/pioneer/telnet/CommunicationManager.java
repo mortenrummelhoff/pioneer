@@ -31,7 +31,6 @@ public class CommunicationManager {
 
     @Scheduled(fixedDelay = 1000*10, initialDelay = 0)
     public void checkPioneerConnection() {
-        logger.info("Checking PioneerConnectionStatus");
 
         if (!isConnection.get()) {
             logger.info("Pioneer connection not established. Trying to Connect!!!");
