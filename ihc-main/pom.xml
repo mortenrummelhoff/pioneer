@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dk.mhr.ihc</groupId>
+    <artifactId>ihc-main</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <cxf.version>3.1.5</cxf.version>
+    </properties>
+
+    <parent>
+        <groupId>dk.mhr.application</groupId>
+        <artifactId>application-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../application-parent</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-jersey</artifactId>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-kernel</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-adb</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-jaxws</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-transport-local</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-transport-http</artifactId>-->
+            <!--<version>1.7.1</version>-->
+        <!--</dependency>-->
+
+    </dependencies>
+
+</project>
