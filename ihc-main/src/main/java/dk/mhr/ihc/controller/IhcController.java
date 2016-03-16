@@ -1,5 +1,6 @@
 package dk.mhr.ihc.controller;
 
+import dk.mhr.ihc.IhcService;
 import dk.mhr.ihc.wsdl.cxf.OpenAPIService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,15 +19,13 @@ public class IhcController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private OpenAPIService ihcStub;
+    private IhcService ihcStub;
 
-    @RequestMapping(path = "/ping", method = RequestMethod.GET)
+    @RequestMapping(path = "/version/api", method = RequestMethod.GET)
     public Integer ping() {
         Integer version = null;
         try {
-            version = ihcStub.getAPIVersion();
-            //ihcStub.getFWVersion();
-            //logger.info("Ping called..: {}", ihcStub.getFWVersion());
+            version = ihcStub.getApiVersion();
         } catch (Exception e) {
             logger.error("Ex", e);
         }
