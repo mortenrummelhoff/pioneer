@@ -1,6 +1,5 @@
 package dk.mhr.ihc.entity;
 
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -9,6 +8,9 @@ import java.util.Date;
 public class DataMessage {
 
     private String message;
+
+    private boolean set;
+
     private Date time;
 
     public String getMessage() {

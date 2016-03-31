@@ -8,6 +8,7 @@ import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,9 @@ public class IhcOpenAPIService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    @Value("${ihc.openapi.host.url}")
+    private String IHC_OPENAPI_HOST_URL;
+
     @Bean
     private OpenAPIService initializeClient() {
         try {
@@ -31,7 +35,7 @@ public class IhcOpenAPIService {
             BindingProvider bp = (BindingProvider) service;
 
             //set IHC ip
-            bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://192.168.0.55/ws/OpenAPIService");
+            bp.getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, IHC_OPENAPI_HOST_URL);
             //enable SESSION Cookies
             bp.getRequestContext().put(BindingProvider.SESSION_MAINTAIN_PROPERTY, Boolean.TRUE);
 
