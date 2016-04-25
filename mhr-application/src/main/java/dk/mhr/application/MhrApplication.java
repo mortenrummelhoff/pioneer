@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * Created by mortenrummelhoff on 06/03/16.
  */
 @SpringBootApplication
-@ComponentScan(basePackages = {"dk.mhr.pioneer", "dk.mhr.ihc"})
+@ComponentScan(basePackages = {"dk.mhr.pioneer", "dk.mhr.ihc", "dk.mhr.application.security"})
 public class MhrApplication {
 
     private static Logger logger = Logger.getLogger(MhrApplication.class.getName());

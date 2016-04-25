@@ -2,6 +2,8 @@ package dk.mhr.pioneer.controller;
 
 import dk.mhr.pioneer.DTO.VolumeString;
 import dk.mhr.pioneer.service.TelnetService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 public class PioneerController {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+
     @Autowired
     private TelnetService telnetService;
 
@@ -23,6 +28,8 @@ public class PioneerController {
 
     @RequestMapping(path = "/power", method = RequestMethod.PUT)
     public void setPioneerPower(@RequestParam("on") boolean on) {
+        logger.info("setPioneerPower called");
+
         telnetService.setPower(on);
     }
 
@@ -46,4 +53,9 @@ public class PioneerController {
         telnetService.setVolume(vol);
     }
 
+    @RequestMapping(path = "/auth", method = RequestMethod.POST)
+    //@CrossOrigin("*")
+    public void authenticate() {
+        System.out.println("autenticate called");
+    }
 }
