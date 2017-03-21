@@ -7,42 +7,67 @@ import java.util.Date;
  */
 public class DataMessage {
 
-    private String message;
-
-    private boolean set;
-
-    private Date time;
-
-    public String getMessage() {
-        return message;
+    public enum RESOURCE_METHOD {
+        GET, SET;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public enum RESOURCE_TYPE {
+        KITCHEN, LIVING_ROOM;
     }
+
+    private RESOURCE_METHOD resource_method;
+    private RESOURCE_TYPE resource_type;
+    private Object value;
+
 
     public DataMessage() {
-        time = new Date();
     }
 
-    public DataMessage(String message) {
-        time = new Date();
-        this.message = message;
+    public DataMessage(DataMessage dataMessage) {
+        this(dataMessage.getResource_method(), dataMessage.getResource_type(), dataMessage.getValue());
     }
 
-    public Date getTime() {
-        return time;
+    public DataMessage(RESOURCE_METHOD resource_method, RESOURCE_TYPE resource_type) {
+        this(resource_method, resource_type, null);
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public DataMessage(RESOURCE_METHOD resource_method, RESOURCE_TYPE resource_type, Object value) {
+        this.resource_method = resource_method;
+        this.resource_type = resource_type;
+        this.value = value;
     }
+
+    public RESOURCE_METHOD getResource_method() {
+        return resource_method;
+    }
+
+    public void setResource_method(RESOURCE_METHOD resource_method) {
+        this.resource_method = resource_method;
+    }
+
+    public RESOURCE_TYPE getResource_type() {
+        return resource_type;
+    }
+
+    public void setResource_type(RESOURCE_TYPE resource_type) {
+        this.resource_type = resource_type;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
 
     @Override
     public String toString() {
         return "DataMessage{" +
-                "message='" + message + '\'' +
-                ", time=" + time +
+                "resource_method=" + resource_method +
+                ", resource_type=" + resource_type +
+                ", value=" + value +
                 '}';
     }
 }

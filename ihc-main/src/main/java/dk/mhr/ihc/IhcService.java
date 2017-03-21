@@ -2,10 +2,13 @@ package dk.mhr.ihc;
 
 import dk.mhr.ihc.entity.DataMessage;
 import dk.mhr.ihc.entity.IhcData;
+import dk.mhr.ihc.persistence.LightRepository;
 import dk.mhr.ihc.wsdl.cxf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -43,6 +46,8 @@ public class IhcService {
     @Autowired
     private SimpMessagingTemplate template;
 
+    @Autowired
+    private LightRepository lightRepository;
 
     public Integer getApiVersion() {
         return openAPIService.getAPIVersion();
@@ -52,13 +57,14 @@ public class IhcService {
     private void initListenForResourceEvents() {
         logger.debug("Setting up listener for IHC resources, OpenApiService: " + openAPIService);
 
-        IhcResourceListenerThread ihcResourceListenerThread = new IhcResourceListenerThread(openAPIService, getSubscriptionList());
+        IhcResourceListenerThread ihcResourceListenerThread = new IhcResourceListenerThread(openAPIService,
+                getSubscriptionList(), template, lightRepository);
         ihcResourceListenerThread.start();
 
     }
 
     public int getKithchenLight() {
-        return getIhcOpenApiIntResource(KITCHEN_DIMMER);
+        return getIhcOpenApiIntResource(KITCHEN_LIGHT_LEVEL);
     }
 
     public void turnOnKitchenLight(boolean set) {
@@ -168,13 +174,13 @@ public class IhcService {
     }
 
 
-    @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() {
-        broadCast(new DataMessage("Hvad sker der bliver der broadCasted"));
-    }
+//    @Scheduled(fixedRate = 5000)
+//    public void reportCurrentTime() {
+//        broadCast(new DataMessage("Hvad sker der bliver der broadCasted"));
+//    }
 
     public void broadCast(DataMessage message) {
-        template.convertAndSend("/topic/message", new DataMessage(message.getMessage()));
+        //template.convertAndSend("/topic/message", new DataMessage(message.getMessage()));
     }
 
 

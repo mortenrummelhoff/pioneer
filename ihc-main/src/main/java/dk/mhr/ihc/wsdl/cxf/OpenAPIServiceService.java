@@ -15,7 +15,7 @@ import javax.xml.ws.Service;
  * 
  */
 @WebServiceClient(name = "OpenAPIServiceService", 
-                  wsdlLocation = "file:/Users/mortenrummelhoff/WORK/repos/pioneer/ihc-main/src/main/java/dk/mhr/ihc/wsdl/cxf/openapi.wsdl",
+                  wsdlLocation = "file:openapi.wsdl",
                   targetNamespace = "utcs") 
 public class OpenAPIServiceService extends Service {
 
@@ -26,11 +26,11 @@ public class OpenAPIServiceService extends Service {
     static {
         URL url = null;
         try {
-            url = new URL("file:/Users/mortenrummelhoff/WORK/repos/pioneer/ihc-main/src/main/java/dk/mhr/ihc/wsdl/cxf/openapi.wsdl");
+            url = new URL("openapi.wsdl");
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(OpenAPIServiceService.class.getName())
                 .log(java.util.logging.Level.INFO, 
-                     "Can not initialize the default wsdl from {0}", "file:/Users/mortenrummelhoff/WORK/repos/pioneer/ihc-main/src/main/java/dk/mhr/ihc/wsdl/cxf/openapi.wsdl");
+                     "Can not initialize the default wsdl from {0}", "file:openapi.wsdl");
         }
         WSDL_LOCATION = url;
     }
