@@ -164,7 +164,6 @@ public class IhcResourceListenerThread extends Thread {
                     }
                 }
 
-
             } catch (Throwable e) {
                 logger.warn("Something went wrong in ServiceAPI Continue anyway", e);
                 //aPushInterface.push("Error occoured: " + e.getMessage());

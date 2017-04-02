@@ -2,6 +2,7 @@ package dk.mhr.pioneer.telnet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,7 +21,8 @@ public class CommunicationManager {
 
     private Socket client;
 
-    private final static String RECEIVER_IP = "192.168.0.45";
+    @Value("${pioneer.host.url}")
+    private String RECEIVER_IP;
     private final static int RECEIVER_PORT = 23;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
@@ -29,7 +31,7 @@ public class CommunicationManager {
 
     private TelnetCommandExecuter telnetCommandExecuter;
 
-    @Scheduled(fixedDelay = 1000*10, initialDelay = 0)
+    //@Scheduled(fixedDelay = 1000*10, initialDelay = 0)
     public void checkPioneerConnection() {
 
         if (!isConnection.get()) {

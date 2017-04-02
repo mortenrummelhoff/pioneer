@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by mortenrummelhoff on 19/02/16.
  */
@@ -55,7 +57,8 @@ public class PioneerController {
 
     @RequestMapping(path = "/auth", method = RequestMethod.POST)
     //@CrossOrigin("*")
-    public void authenticate() {
-        System.out.println("autenticate called");
+    public void authenticate(HttpSession httpSession) {
+        System.out.println("autenticate called. Session: " + httpSession);
+        httpSession.setAttribute("Authenticated", true);
     }
 }
