@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 http.authorizeRequests()
                         .antMatchers("/chat/**").permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/chat").permitAll()
                         //.antMatchers("/login").permitAll()
                         .antMatchers("/api/**").authenticated();
                 //.anyRequest().authenticated().and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
@@ -70,7 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .logout()
 //                .permitAll()
         ;
-                //http.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+                http.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
 
     }
 
@@ -80,18 +81,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("configureGlobal called");
 
         builder.inMemoryAuthentication()
-                .withUser("morten@mhr.dk").password("Morten1024!").roles("ADMIN").and()
-        .withUser("mhr").password("mhr").roles("USER");
+                .withUser("morten@mhr.dk").password("Morten1024!").roles("ADMIN");
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.addAllowedOrigin("*");
+        configuration.addAllowedOrigin("http://localhost:8081");
+        configuration.addAllowedOrigin("https://work.mhr.dk");
+        //configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

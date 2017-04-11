@@ -31,7 +31,7 @@ public class CommunicationManager {
 
     private TelnetCommandExecuter telnetCommandExecuter;
 
-    //@Scheduled(fixedDelay = 1000*10, initialDelay = 0)
+    @Scheduled(fixedDelay = 1000*10, initialDelay = 0)
     public void checkPioneerConnection() {
 
         if (!isConnection.get()) {
