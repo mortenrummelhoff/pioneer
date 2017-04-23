@@ -40,7 +40,7 @@ public class IhcController {
 
     @RequestMapping(path = "/light/kitchen", method = RequestMethod.PUT)
     public void setKitchenLight(@RequestParam("set") boolean set) {
-        ihcStub.turnOnKitchenLight(set);
+        //ihcStub.turnOnKitchenLight(set);
     }
 
     @RequestMapping(path = "/light/kitchen", method = RequestMethod.GET)

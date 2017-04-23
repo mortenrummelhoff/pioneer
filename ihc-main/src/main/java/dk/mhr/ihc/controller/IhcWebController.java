@@ -38,7 +38,7 @@ public class IhcWebController {
         } else {
             int val = Integer.parseInt(dataMessage.getValue().toString());
 
-            ihcService.turnOnKitchenLight(val != 0);
+            ihcService.turnOnKitchenLight(val != 0, val);
         }
 
         return rspMessage;

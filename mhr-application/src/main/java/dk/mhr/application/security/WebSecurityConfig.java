@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("configureGlobal called");
 
         builder.inMemoryAuthentication()
-                .withUser("morten@mhr.dk").password("Morten1024!").roles("ADMIN");
+                .withUser("morten@mhr.dk").password("ihc123!").roles("ADMIN");
     }
 
     @Bean
@@ -90,6 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedOrigin("http://localhost:8081");
         configuration.addAllowedOrigin("https://work.mhr.dk");
         //configuration.addAllowedOrigin("*");
+        configuration.addAllowedOrigin("https://mhrapp.itdev.nu");
+
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

@@ -67,57 +67,43 @@ public class IhcService {
         return getIhcOpenApiIntResource(KITCHEN_LIGHT_LEVEL);
     }
 
-    public void turnOnKitchenLight(boolean set) {
+    public void turnOnKitchenLight(boolean set, int value) {
         ObjectFactory aOF = new ObjectFactory();
-
-        //set both buttons off
         ArrayOfWSResourceValueEvent rveList = aOF.createArrayOfWSResourceValueEvent();
 
-        WSResourceValueEvent rveLeft = aOF.createWSResourceValueEvent();
-        rveLeft.setMResourceID(KITCHEN_PUSH_UP_LEFT);
-
-        WSResourceValueEvent rveRight = aOF.createWSResourceValueEvent();
-        rveRight.setMResourceID(KITCHEN_PUSH_UP_RIGHT);
-
-        WSBooleanValue bFalseValue = aOF.createWSBooleanValue();
-        bFalseValue.setValue(false);
-        rveLeft.setMValue(bFalseValue);
-        rveRight.setMValue(bFalseValue);
-
-        rveList.getArrayItem().add(rveLeft);
-        rveList.getArrayItem().add(rveRight);
-
-        Boolean result = openAPIService.setValues(rveList);
-
-        //set Poweron resource for 1 sec
-        WSBooleanValue bTrueValue = aOF.createWSBooleanValue();
-        bTrueValue.setValue(true);
-        if (set) {
-            rveLeft.setMValue(bTrueValue);
-        }
-        else {
-            rveRight.setMValue(bTrueValue);
+        if (set && value != 100) {
+            logger.info("Kitchen light level adjustment. Setting level to: " + value);
+            WSResourceValueEvent lightValueEvent = aOF.createWSResourceValueEvent();
+            lightValueEvent.setMResourceID(KITCHEN_LIGHT_LEVEL);
+            WSIntegerValue lightValue = aOF.createWSIntegerValue();
+            lightValue.setInteger(value);
+            rveList.getArrayItem().add(lightValueEvent);
+            boolean b = openAPIService.setValues(rveList);
+            logger.info("Response: " + b);
+            return;
         }
 
-        openAPIService.setValues(rveList);
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        WSResourceValueEvent valueEvent = aOF.createWSResourceValueEvent();
+        valueEvent.setMResourceID(set ? KITCHEN_PUSH_UP_LEFT : KITCHEN_PUSH_UP_RIGHT);
+        WSBooleanValue booleanValue = aOF.createWSBooleanValue();
+        booleanValue.setValue(true);
+        valueEvent.setMValue(booleanValue);
+        rveList.getArrayItem().add(valueEvent);
 
-        //Set both buttons to false again
-        rveLeft.setMValue(bFalseValue);
-        rveRight.setMValue(bFalseValue);
+        valueEvent = aOF.createWSResourceValueEvent();
+        valueEvent.setMResourceID(set ? KITCHEN_PUSH_UP_LEFT : KITCHEN_PUSH_UP_RIGHT);
+        booleanValue = aOF.createWSBooleanValue();
+        booleanValue.setValue(false);
+        valueEvent.setMValue(booleanValue);
+        rveList.getArrayItem().add(valueEvent);
 
-        openAPIService.setValues(rveList);
+
+        boolean b = openAPIService.setValues(rveList);
+        logger.info("Response: " + b);
 
 
     }
-
-
 
     private boolean getIhcOpenApiBooleanResource(int resource) {
         ObjectFactory aOF = new ObjectFactory();
